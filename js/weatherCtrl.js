@@ -1,7 +1,7 @@
 
     angular.module('myApp', []).controller('weatherCtrl', function ($scope, $http) {
 
-        $http.get('http://wxw.ngrok.xiaomiqiu.cn/api/weather/dayinfos').success(function (response) {
+        $http.get('https://wxw.ngrok.xiaomiqiu.cn/api/weather/dayinfos').success(function (response) {
             $scope.Weather6 = response.HeWeather6;
             charFunction($scope.Weather6[0].daily_forecast);
             console.log($scope.Weather6[0]);
@@ -50,7 +50,7 @@
                 }]
             });
         });
-        $http.get('http://wxw.ngrok.xiaomiqiu.cn/api/get-ip').success(function (response) {
+        $http.get('https://wxw.ngrok.xiaomiqiu.cn/api/get-ip').success(function (response) {
             $scope.ip = response.ip;
             $scope.count = response.count;
         });

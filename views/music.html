@@ -144,13 +144,13 @@
         }
 
     </style>
-    <script src="../static/js/angular.js"></script>
+    <script src="../js/angular.js"></script>
     <!--<script src="../static/js/angular.min.js"></script>-->
-    <script src="../static/js/angular-resource.js"></script>
-    <script src="../static/js/angular-sanitize.js"></script>
-    <script src="../static/js/angular-animate.js"></script>
-    <script src="../static/js/angular-touch.js"></script>
-    <script src="../static/js/angular-route.js"></script>
+    <script src="../js/angular-resource.js"></script>
+    <script src="../js/angular-sanitize.js"></script>
+    <script src="../js/angular-animate.js"></script>
+    <script src="../js/angular-touch.js"></script>
+    <script src="../js/angular-route.js"></script>
     <script>
         var app = angular.module('myApp', ['ngRoute', 'ngResource']);
         app.config(function ($httpProvider) {
@@ -163,7 +163,7 @@
             $http({
                 method: "get",
                 params: {"url": urlStr},
-                url: "/audio/lrc"
+                url: "https://wxw.ngrok.xiaomiqiu.cn/audio/lrc"
             }).success(function (data) {
                 defer.resolve(data);
             });
@@ -185,7 +185,7 @@
         });
 
     </script>
-    <script src="../static/js/weatherCtrl.js"></script>
+    <script src="../js/weatherCtrl.js"></script>
 
 </head>
 
@@ -203,9 +203,9 @@
         <div class="col-sm-12">
             <div id="music_cover">
                 <a href="javascript:void(0);" id="ic_play_btn" onclick="sing()">
-                    <img src="../static/waitfor.png" id="cover_alum"/>
+                    <img src="../images/waitfor.png" id="cover_alum"/>
                     <div id="ic_play">
-                        <img src="../static/ic_musicplaying.png" style="z-index: 100"
+                        <img src="../images/ic_musicplaying.png" style="z-index: 100"
                              id="ic_play_img"/>
                     </div>
                 </a>
