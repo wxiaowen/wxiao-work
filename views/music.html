@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <title>music</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta http-equiv="Cache-Control" CONTENT="no-cache">
+    <meta name="Keywords" content="wen">
+    <meta name="description" content="wen" >
+    <meta name="author" content="wen">
+    <link rel=""
+          crossorigin="anonstylesheet" href="../static/css/bootstrap.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100%;
+            /* */
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-attachment: fixed;
+        }
+
+        #music_cover {
+            margin: 250px auto 60px auto;
+            text-align: center;
+        }
+
+        #cover_alum {
+            width: 600px;
+            height: 600px;
+            border-radius: 40px;
+
+            animation-duration: 5s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+
+            -webkit-animation-duration: 5s;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-timing-function: linear;
+
+            -moz-animation-duration: 5s;
+            -moz-animation-iteration-count: infinite;
+            -moz-animation-timing-function: linear;
+
+            -o-animation-duration: 5s;
+            -o-animation-iteration-count: infinite;
+            -o-animation-timing-function: linear;
+            -ms-animation-name: "";
+            -ms-animation-duration: 5s;
+            -ms-animation-iteration-count: infinite;
+            -ms-animation-timing-function: linear;
+
+        }
+
+        @keyframes go {
+            0% {
+                transform: rotate(0);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @-webkit-keyframes go { /* Safari and Chrome */
+            0% {
+                -webkit-transform: rotate(0);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @-ms-keyframes go { /* ie */
+            0% {
+                -ms-transform: rotate(0);
+            }
+            100% {
+                -ms-transform: rotate(360deg);
+            }
+        }
+
+        @-moz-keyframes go { /* Mozilla Firefox */
+            0% {
+                -moz-transform: rotate(0);
+            }
+            100% {
+                -moz-transform: rotate(360deg);
+            }
+        }
+
+        @-o-keyframes go { /* opera */
+            0% {
+                -o-transform: rotate(0);
+            }
+            100% {
+                -o-transform: rotate(360deg);
+            }
+        }
+
+        .music_app {
+            height: 120px;
+            background-color: #a129df;
+            border-radius: 30px;
+            text-align: center;
+            line-height: 120px;
+            margin-left: 45px;
+            margin-right: 75px;
+        }
+
+
+        .music_name {
+            text-align: center;
+            margin-right: 35px;
+            margin-left: 35px;
+            font-size: 36px;
+            color: #333333;
+        }
+
+        #audio_control {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .bottom-container {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            margin-bottom: 60px;
+        }
+
+        #ic_play {
+            position: fixed;
+            margin-left: 405px;
+            margin-top: -320px;
+        }
+
+        #ic_play_img {
+            margin-top: -50px;
+            z-index: 100;
+        }
+
+    </style>
+    <script src="../static/js/angular.js"></script>
+    <!--<script src="../static/js/angular.min.js"></script>-->
+    <script src="../static/js/angular-resource.js"></script>
+    <script src="../static/js/angular-sanitize.js"></script>
+    <script src="../static/js/angular-animate.js"></script>
+    <script src="../static/js/angular-touch.js"></script>
+    <script src="../static/js/angular-route.js"></script>
+    <script>
+        var app = angular.module('myApp', ['ngRoute', 'ngResource']);
+        app.config(function ($httpProvider) {
+            $httpProvider.defaults.headers.post = {'Content-Type': 'application/x-www-form-urlencoded'}
+        });
+        app.controller('weatherCtrl', function ($scope, $resource, $q, $http) {
+            var defer = $q.defer();
+            var promise = defer.promise;
+            var urlStr = 'http://www.lrcgc.com/lrc-106-330486/%E5%91%A8%E6%9D%B0%E4%BC%A6-%E7%AD%89%E4%BD%A0%E4%B8%8B%E8%AF%BE%20(%26%20%E6%9D%A8%E7%91%9E%E4%BB%A3).lrc';
+            $http({
+                method: "get",
+                params: {"url": urlStr},
+                url: "/audio/lrc"
+            }).success(function (data) {
+                defer.resolve(data);
+            });
+            promise.then(function (data) {
+                $scope.data = data.lrc;
+                console.log($scope.data);
+            });
+            var aud = document.getElementById('audio_music');
+            aud.ontimeupdate = function () {
+                console.log(aud.currentTime);
+                for (var i = 0; i < ($scope.data.length); i++) {
+                    if (aud.currentTime > $scope.data[i].time) {
+                        $scope.lrcContent = $scope.data[i].content;
+                        console.log($scope.lrcContent);
+                        document.getElementById("content").innerHTML=$scope.lrcContent;//此处写的不好
+                    }
+                }
+            };
+        });
+
+    </script>
+    <script src="../static/js/weatherCtrl.js"></script>
+
+</head>
+
+<body>
+
+<div class="container-fluid" ng-controller="weatherCtrl">
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="userInfo">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="music_cover">
+                <a href="javascript:void(0);" id="ic_play_btn" onclick="sing()">
+                    <img src="../static/waitfor.png" id="cover_alum"/>
+                    <div id="ic_play">
+                        <img src="../static/ic_musicplaying.png" style="z-index: 100"
+                             id="ic_play_img"/>
+                    </div>
+                </a>
+            </div>
+            <div id="audio_control" style="display: none">
+                <audio id="audio_music" controls="controls"
+                       src="http://dl.stream.qqmusic.qq.com/C400001J5QJL1pRQYB.m4a?vkey=E160B49F11DF13F47F9586D68080592E9174F98AE8056A157B3FF6C8B29A09BD9812886BF8CC6801A01170CD8EA686055FD3646756D9B0E9&guid=7420536707&uin=0&fromtag=66"></audio>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="music_name">
+                <p style="text-align: center;font-family: Consolas;color: rgba(0,0,0,0.69);font-size: 50px">等你下课</p>
+            </div>
+            <div class="irc">
+                <p style="text-align: center;font-family: Consolas;color: rgba(135,255,62,0.88);font-size: 60px;margin-top:80px" id="content">
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-container">
+        <div class="row">
+
+        </div>
+    </div>
+</div>
+<!--<script src="http://vjs.zencdn.net/6.4.0/music.js"></script>-->
+</body>
+</html>
