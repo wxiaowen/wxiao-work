@@ -54,7 +54,9 @@
             $scope.ip = response.ip;
             $scope.count = response.count;
         });
-    });
+
+
+
 
     //绘制表格
     function charFunction(result) {
@@ -186,6 +188,9 @@ function sing() {
         play.style.display = "block";
     }
 }
+        
+    });
+
 
 
 
