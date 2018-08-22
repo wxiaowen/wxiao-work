@@ -150,6 +150,42 @@
     <script src="./js/weatherCtrl.js"></script>
 </head>
 <body>
+
+  <script>
+        var app = angular.module('myApp', ['ngRoute', 'ngResource']);
+        app.config(function ($httpProvider) {
+            $httpProvider.defaults.headers.post = {'Content-Type': 'application/x-www-form-urlencoded'}
+        });
+        app.controller('weatherCtrl', function ($scope, $resource, $q, $http) {
+            $scope.music_name="等你下课-周杰伦";
+            var defer = $q.defer();
+            var promise = defer.promise;
+            var urlStr = 'http://www.lrcgc.com/lrc-106-330486/%E5%91%A8%E6%9D%B0%E4%BC%A6-%E7%AD%89%E4%BD%A0%E4%B8%8B%E8%AF%BE%20(%26%20%E6%9D%A8%E7%91%9E%E4%BB%A3).lrc';
+            $http({
+                method: "get",
+                params: {"url": urlStr},
+                url: "http://wxw.ngrok.xiaomiqiu.cn/audio/lrc"
+            }).success(function (data) {
+                defer.resolve(data);
+            });
+            promise.then(function (data) {
+                $scope.data = data.lrc;
+                console.log($scope.data);
+            });
+            var aud = document.getElementById('audio_music');
+            aud.ontimeupdate = function () {
+                console.log(aud.currentTime);
+                for (var i = 0; i < ($scope.data.length); i++) {
+                    if (aud.currentTime > $scope.data[i].time) {
+                        $scope.lrcContent = $scope.data[i].content;
+                        console.log($scope.lrcContent);
+                        document.getElementById("content").innerHTML=$scope.lrcContent;//此处写的不好
+                    }
+                }
+            };
+        });
+
+    </script>
 <div class="container-fluid" ng-controller="weatherCtrl">
     <div class="row">
         <div class="col-sm-12">
@@ -181,10 +217,10 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="music_name">
-                <p style="text-align: center;font-family: Consolas;color: rgba(0,0,0,0.69);font-size: 50px">等你下课</p>
+                <p style="text-align: center;font-family: Consolas;color: rgba(0,0,0,0.69);font-size: 50px">{{music_name}}</p>
             </div>
             <div class="irc">
-                <p style="text-align: center;font-family: Consolas;color: rgba(135,255,62,0.88);font-size: 60px;margin-top:30px" id="content">
+                <p style="text-align: center;font-family: Consolas;color: rgba(24, 81, 93, 0.93);font-size: 60px;margin-top:30px" id="content">
                 </p>
 
             </div>
@@ -197,39 +233,5 @@
     </div>
 </div>
 
-  <script>
-        var app = angular.module('myApp', ['ngRoute', 'ngResource']);
-        app.config(function ($httpProvider) {
-            $httpProvider.defaults.headers.post = {'Content-Type': 'application/x-www-form-urlencoded'}
-        });
-        app.controller('weatherCtrl', function ($scope, $resource, $q, $http) {
-            var defer = $q.defer();
-            var promise = defer.promise;
-            var urlStr = 'http://www.lrcgc.com/lrc-106-330486/%E5%91%A8%E6%9D%B0%E4%BC%A6-%E7%AD%89%E4%BD%A0%E4%B8%8B%E8%AF%BE%20(%26%20%E6%9D%A8%E7%91%9E%E4%BB%A3).lrc';
-            $http({
-                method: "get",
-                params: {"url": urlStr},
-                url: "http://wxw.ngrok.xiaomiqiu.cn/audio/lrc"
-            }).success(function (data) {
-                defer.resolve(data);
-            });
-            promise.then(function (data) {
-                $scope.data = data.lrc;
-                console.log($scope.data);
-            });
-            var aud = document.getElementById('audio_music');
-            aud.ontimeupdate = function () {
-                console.log(aud.currentTime);
-                for (var i = 0; i < ($scope.data.length); i++) {
-                    if (aud.currentTime > $scope.data[i].time) {
-                        $scope.lrcContent = $scope.data[i].content;
-                        console.log($scope.lrcContent);
-                        document.getElementById("content").innerHTML=$scope.lrcContent;//此处写的不好
-                    }
-                }
-            };
-        });
-
-    </script>
 </body>
 </html>
