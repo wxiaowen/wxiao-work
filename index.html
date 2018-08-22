@@ -2,14 +2,14 @@
 <html ng-app="myApp">
 <head>
     <title>天气预报</title>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name=”viewport” content=”width=width, initial-scale=1, maximum-scale=1">
     <meta name="Keywords" content="wen">
     <meta name="description" content="wen">
     <meta name="author" content="wen">
    <meta http-equiv=”Content-Security-Policy” content=”upgrade-insecure-requests”>
     <link href="./logo.png" rel="shortcut icon">
-    <link rel=""
-          crossorigin="anonstylesheet" href="./css/bootstrap.min.css">
+    <link href="./css/bootstrap.min.css">
 
     <style>
         * {
@@ -17,13 +17,12 @@
             padding: 0;
         }
 
-        body {
-            height: 100%;
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
-            background-attachment: fixed;
-        }
-
+      html,body{height: 100%;}
+    body{overflow: hidden;}
+    img{
+        width: 100%;
+        height: 100%;
+    }
         .app_name {
             color: #ffffff;
             font-size: 36px;
