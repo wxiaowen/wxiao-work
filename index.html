@@ -97,13 +97,17 @@
         </div>
     </div>
 </div>
+<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+<script type="text/javascript">  
+    console.log(returnCitySN["cip"])  
+</script>
 <!--<script src="http://vjs.zencdn.net/6.4.0/music.js"></script>-->
 <script>
 
     angular.module('myApp', []).controller('weatherCtrl', function ($scope, $http) {
 
- $http.get('http://www.taobao.com/help/getip.php').success(function (response) {
-           console.log(response);
+ $http.get('http://pv.sohu.com/cityjson?ie=utf-8').success(function (response) {
+           console.log(response.returnCitySN["cip"]);
            $scope.currentIp=response;
         });
 
