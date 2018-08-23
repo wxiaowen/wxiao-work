@@ -8,9 +8,9 @@ function sing() {
     var audio = document.getElementsByTagName('audio')[0];
     var play = document.getElementById("ic_play_img");
     var coverAlum = document.getElementById("cover_alum");
+      load("./song/C400001J5QJL1pRQYB.mp3");
     if (audio.paused) {
         audio.play();
-        load("./song/C400001J5QJL1pRQYB.mp3");
         //适配各种浏览器
         coverAlum.style.animationName = "go";
         coverAlum.style.animationPlayState = "running";
