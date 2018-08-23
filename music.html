@@ -142,16 +142,18 @@
         }
 
     </style>
+      <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
     <script src="./js/angular.js"></script>
     <script src="./js/angular-resource.js"></script>
     <script src="./js/angular-animate.js"></script>
     <script src="./js/angular-touch.js"></script>
     <script src="./js/angular-route.js"></script>
-    <script src="./js/weatherCtrl.js"></script>
+ 
 </head>
 <body>
 
   <script>
+   
         var app = angular.module('myApp', ['ngRoute', 'ngResource']);
         app.config(function ($httpProvider) {
             $httpProvider.defaults.headers.post = {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -207,7 +209,7 @@
             </div>
             <div id="audio_control" style="display: none">
                 <audio id="audio_music" controls="controls"
-                       src="http://dl.stream.qqmusic.qq.com/C400001J5QJL1pRQYB.m4a?vkey=044A46FC3EB9CC36661F6B5B92C59A654760D818E9A012BA0514986F5AF3A62B9388CD2FC1FE9FF44BFD5615B242DC2ED271915F7DD2968E&guid=3526639136&uin=0&fromtag=66"></audio>
+                       src="./song/C400001J5QJL1pRQYB.mp3"></audio>
 
 
             </div>
@@ -224,14 +226,21 @@
                 </p>
 
             </div>
+                 <div class="right" id="box"></div>
         </div>
     </div>
 
     <div class="bottom-container">
         <div class="row">
+
         </div>
     </div>
 </div>
+   <script src="./js/weatherCtrl.js"></script>
+<script type="text/javascript">
+    
 
+
+</script>>
 </body>
 </html>
