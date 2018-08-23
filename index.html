@@ -101,6 +101,13 @@
 <script>
 
     angular.module('myApp', []).controller('weatherCtrl', function ($scope, $http) {
+
+ $http.get('http://www.taobao.com/help/getip.php').success(function (response) {
+           console.log(response);
+        });
+
+
+
         $http.get('http://wxw.ngrok.xiaomiqiu.cn/api/weather/dayinfos').success(function (response) {
             $scope.Weather6 = response.HeWeather6;
             charFunction($scope.Weather6[0].daily_forecast);
