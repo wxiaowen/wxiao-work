@@ -98,7 +98,26 @@
     </div>
 </div>
 <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
-<script type="text/javascript" >
+<script type="text/javascript">
+
+  
+var ws = new WebSocket("ws://wxw.ngrok.xiaomiqiu.cn/webSocket?ip="+returnCitySN["cip"]);
+ 
+ws.onopen = function(evt) {
+	console.log("Connection open ...");
+	ws.send("Hello WebSockets!");
+};
+ 
+ws.onmessage = function(evt) {
+	console.log("Received Message: " + evt.data);
+	ws.close();
+};
+ 
+ws.onclose = function(evt) {
+	console.log("Connection closed.");
+};
+
+
 
     angular.module('myApp', []).controller('weatherCtrl', function ($scope, $http) {
        $scope.currentIp=returnCitySN["cip"];
