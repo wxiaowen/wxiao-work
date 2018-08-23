@@ -101,15 +101,8 @@
 <script type="text/javascript" >
 
     angular.module('myApp', []).controller('weatherCtrl', function ($scope, $http) {
-
- // $http.get('http://pv.sohu.com/cityjson?ie=utf-8').success(function (response) {
- //           console.log(response.returnCitySN["cip"]);
- //           $scope.currentIp=response;
- //        });
        $scope.currentIp=returnCitySN["cip"];
-
-
-        $http.get('http://wxw.ngrok.xiaomiqiu.cn/api/weather/dayinfos').success(function (response) {
+        $http.get('http://wxw.ngrok.xiaomiqiu.cn/api/weather/dayinfos',{"ip":$scope.currentIp}).success(function (response) {
             $scope.Weather6 = response.HeWeather6;
             charFunction($scope.Weather6[0].daily_forecast);
             console.log($scope.Weather6[0]);
@@ -158,8 +151,7 @@
                 }]
             });
         });
-        $http.get('http://wxw.ngrok.xiaomiqiu.cn/api/get-ip').success(function (response) {
-            $scope.ip = response.ip;
+        $http.get('http://wxw.ngrok.xiaomiqiu.cn/api/get-ip',{"ip":$scope.currentIp}).success(function (response) {
             $scope.count = response.count;
         });
     });
