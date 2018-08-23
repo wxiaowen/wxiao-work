@@ -1,13 +1,9 @@
-//听歌
-function jump() {
-    window.location.href = "./music.html";
-
-}
 
 function sing() {
     var audio = document.getElementsByTagName('audio')[0];
     var play = document.getElementById("ic_play_img");
     var coverAlum = document.getElementById("cover_alum");
+   
     if (audio.paused) {
         audio.play();
         //适配各种浏览器
@@ -36,7 +32,9 @@ function sing() {
     }
 }
 
-
+window.onload=function(){
+     load("./song/C400001J5QJL1pRQYB.mp3");
+}
 
 function $(s){
     return document.querySelectorAll(s);
@@ -72,7 +70,18 @@ line.addColorStop(0.75,"yellow");
 line.addColorStop(1,"orange");
 ctx.fillStyle=line;
 }
-resize();
+
+
+            var aud = document.getElementById('audio_music');
+            aud.ontimeupdate = function () {
+                console.log(aud.currentTime);
+              resize();
+                }
+           
+
+
+
+
 window.onresize =resize;
 function draw (arr){
     ctx.clearRect(0,0,width,height);
