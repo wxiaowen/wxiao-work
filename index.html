@@ -63,7 +63,7 @@
         <div class="col-sm-12">
             <div id="userInfo" class="pull-right">
 
-                <p style="font-size: 20px">&nbsp;&nbsp;访问次数：{{count}}&nbsp;&nbsp;</p>
+                <p style="font-size: 20px">&nbsp;&nbsp;访问次数：{{count}}{{currentIp}}&nbsp;&nbsp;</p>
             </div>
         </div>
     </div>
@@ -104,6 +104,7 @@
 
  $http.get('http://www.taobao.com/help/getip.php').success(function (response) {
            console.log(response);
+           $scop.currentIp=response;
         });
 
 
