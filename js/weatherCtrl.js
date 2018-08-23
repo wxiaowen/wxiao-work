@@ -8,10 +8,11 @@ function sing() {
     var audio = document.getElementsByTagName('audio')[0];
     var play = document.getElementById("ic_play_img");
     var coverAlum = document.getElementById("cover_alum");
-    load("./song/C400001J5QJL1pRQYB.mp3");
+    
     if (audio.paused) {
-         visulaLizer();
         audio.play();
+          load("./song/C400001J5QJL1pRQYB.mp3");
+           visulaLizer();
         //适配各种浏览器
         coverAlum.style.animationName = "go";
         coverAlum.style.animationPlayState = "running";
@@ -39,6 +40,10 @@ function sing() {
 }
 
 
+
+function $(s){
+    return document.querySelectorAll(s);
+}
 
 //ajax
 var xhr=new XMLHttpRequest();
@@ -104,9 +109,8 @@ if(n!=count) return;
         console.log(xhr.response);
     }
     xhr.send();
-    
 }
-
+ visulaLizer();
 function visulaLizer(){
     var arr=new Uint8Array(analyser.frequencyBinCount);
     analyser.getByteFrequencyData(arr);
