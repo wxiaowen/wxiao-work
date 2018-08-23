@@ -63,7 +63,9 @@
         <div class="col-sm-12">
             <div id="userInfo" class="pull-right">
 
-                <p style="font-size: 20px">&nbsp;&nbsp;访问次数：{{count}}&nbsp;&nbsp;</p>
+                <p style="font-size: 20px">&nbsp;&nbsp;访问次数：{{totalCount}}&nbsp;&nbsp;</p>
+
+                <p style="font-size: 20px">&nbsp;&nbsp;当前人数：{{count}}&nbsp;&nbsp;</p>
             </div>
         </div>
     </div>
@@ -172,6 +174,9 @@ ws.onclose = function(evt) {
         });
         $http.get('http://wxw.ngrok.xiaomiqiu.cn/api/get-ip',{params:{ip:$scope.currentIp}}).success(function (response) {
             $scope.count = response.count;
+            $scope.totalCount = response.totalCount;
+    
+
         });
     });
 
