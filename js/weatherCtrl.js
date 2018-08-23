@@ -3,7 +3,7 @@ function sing() {
     var audio = document.getElementsByTagName('audio')[0];
     var play = document.getElementById("ic_play_img");
     var coverAlum = document.getElementById("cover_alum");
-   
+   load("./song/C400001J5QJL1pRQYB.mp3");
     if (audio.paused) {
         audio.play();
         //适配各种浏览器
@@ -32,9 +32,6 @@ function sing() {
     }
 }
 
-window.onload=function(){
-     load("./song/C400001J5QJL1pRQYB.mp3");
-}
 
 //ajax
 var xhr=new XMLHttpRequest();
