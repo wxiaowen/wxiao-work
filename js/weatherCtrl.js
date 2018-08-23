@@ -36,10 +36,6 @@ window.onload=function(){
      load("./song/C400001J5QJL1pRQYB.mp3");
 }
 
-function $(s){
-    return document.querySelectorAll(s);
-}
-
 //ajax
 var xhr=new XMLHttpRequest();
 var ac =new (window.AudioContext||window.webkitAudioContext)();
@@ -75,8 +71,7 @@ ctx.fillStyle=line;
             var aud = document.getElementById('audio_music');
             aud.ontimeupdate = function () {
                 console.log(aud.currentTime);
-              resize();
-                }
+              visulaLizer();                }
            
 
 
