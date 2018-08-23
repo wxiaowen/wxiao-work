@@ -63,7 +63,7 @@
         <div class="col-sm-12">
             <div id="userInfo" class="pull-right">
 
-                <p style="font-size: 20px">&nbsp;&nbsp;访问次数：{{count}}{{currentIp}}&nbsp;&nbsp;</p>
+                <p style="font-size: 20px">&nbsp;&nbsp;访问次数：{{count}}&nbsp;&nbsp;</p>
             </div>
         </div>
     </div>
@@ -74,7 +74,7 @@
                 <div id="weatherChart"
                      style="min-width:700px;height:400px; margin-bottom: 20px;margin-top: 150px;"></div>
             </div>
-            <p style="text-align: center;font-size: 20px">&nbsp;&nbsp;IP：{{ip}}&nbsp;&nbsp;经度：{{Weather6[0].basic.lon}}&nbsp;&nbsp;纬度：{{Weather6[0].basic.lat}}&nbsp;&nbsp;更新时间：{{Weather6[0].update.loc}}</p>
+            <p style="text-align: center;font-size: 20px">&nbsp;&nbsp;IP：{{currentIp}}&nbsp;&nbsp;经度：{{Weather6[0].basic.lon}}&nbsp;&nbsp;纬度：{{Weather6[0].basic.lat}}&nbsp;&nbsp;更新时间：{{Weather6[0].update.loc}}</p>
         </div>
     </div>
 
@@ -98,19 +98,15 @@
     </div>
 </div>
 <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
-<script type="text/javascript">  
-    console.log(returnCitySN["cip"])  
-</script>
-<!--<script src="http://vjs.zencdn.net/6.4.0/music.js"></script>-->
-<script>
+<script type="text/javascript" >
 
     angular.module('myApp', []).controller('weatherCtrl', function ($scope, $http) {
 
- $http.get('http://pv.sohu.com/cityjson?ie=utf-8').success(function (response) {
-           console.log(response.returnCitySN["cip"]);
-           $scope.currentIp=response;
-        });
-
+ // $http.get('http://pv.sohu.com/cityjson?ie=utf-8').success(function (response) {
+ //           console.log(response.returnCitySN["cip"]);
+ //           $scope.currentIp=response;
+ //        });
+       $scope.currentIp=returnCitySN["cip"];
 
 
         $http.get('http://wxw.ngrok.xiaomiqiu.cn/api/weather/dayinfos').success(function (response) {
