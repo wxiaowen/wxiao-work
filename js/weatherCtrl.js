@@ -26,6 +26,7 @@ function sing() {
     } else {
         audio.pause();
         //适配各种浏览器
+        xhr.abort();
         coverAlum.style.animationName = "go";
         coverAlum.style.animationPlayState = "paused";
         coverAlum.style.webkitAnimationName = "go";
@@ -39,10 +40,6 @@ function sing() {
 }
 
 
-
-function $(s){
-    return document.querySelectorAll(s);
-}
 
 //ajax
 var xhr=new XMLHttpRequest();
@@ -108,8 +105,9 @@ if(n!=count) return;
         console.log(xhr.response);
     }
     xhr.send();
+     visulaLizer();
 }
- visulaLizer();
+
 function visulaLizer(){
     var arr=new Uint8Array(analyser.frequencyBinCount);
     analyser.getByteFrequencyData(arr);
@@ -121,7 +119,7 @@ analyser.getByteFrequencyData(arr);
     draw(arr);
 requestAnimationFrame(v);
     }
-    
+    requestAnimationFrame(v);
 }
 function changeVolume(per){
     gainNode.gain.value=per*per;
