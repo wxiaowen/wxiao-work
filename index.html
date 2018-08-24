@@ -130,7 +130,7 @@ ws.onclose = function(evt) {
 
 $http({
         method: 'GET',
-        url: 'https://wxw.ngrok.xiaomiqiu.cn/api/weather/dayinfos?ip='+returnCitySN["cip"]
+        url: 'http://wxw.ngrok.xiaomiqiu.cn/api/weather/dayinfos?ip='+returnCitySN["cip"]
     }).then(function successCallback(response) {
   $scope.Weather6 = response.data.HeWeather6;
             charFunction($scope.Weather6[0].daily_forecast);
@@ -186,7 +186,7 @@ $http({
 
 $http({
         method: 'GET',
-        url: 'https://wxw.ngrok.xiaomiqiu.cn/api/get-ip?ip='+returnCitySN["cip"]
+        url: 'http://wxw.ngrok.xiaomiqiu.cn/api/get-ip?ip='+returnCitySN["cip"]
     }).then(function successCallback(response) {
           $scope.count = response.data.count;
             $scope.totalCount = response.data.totalCount;
