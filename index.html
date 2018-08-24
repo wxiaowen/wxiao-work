@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="myApp">
+<html >
 <head>
     <title>wen</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -59,6 +59,49 @@
 </head>
 
 <body>
+
+
+
+<div class="container-fluid" ng-app="myApp" ng-controller="weatherCtrl">
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="userInfo" class="pull-right">
+
+                <p style="font-size: 20px">&nbsp;&nbsp;访问次数：{{totalCount}}&nbsp;&nbsp;</p>
+
+                <p style="font-size: 20px">&nbsp;&nbsp;当前人数：{{count}}&nbsp;&nbsp;</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="weatherInfo">
+                <div id="weatherChart"
+                     style="min-width:700px;height:400px; margin-bottom: 20px;margin-top: 150px;"></div>
+            </div>
+            <p style="text-align: center;font-size: 20px">&nbsp;&nbsp;IP：{{currentIp}}&nbsp;&nbsp;经度：{{Weather6[0].basic.lon}}&nbsp;&nbsp;纬度：{{Weather6[0].basic.lat}}&nbsp;&nbsp;更新时间：{{Weather6[0].update.loc}}</p>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-12" style="margin-top: 60px">
+
+            <div id="container" style="height: 600px;"></div>
+        </div>
+    </div>
+    <div class="bottom-container">
+        <div class="row">
+            <a href="./music.html" class="app_name"
+               style="text-decoration: none;color: #849fff;font-size: 48px">
+                <div class="music_app">
+                    点我
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
 <script src="https://pv.sohu.com/cityjson?ie=utf-8"></script>
 <script type="text/javascript">
 
@@ -83,11 +126,15 @@ ws.onclose = function(evt) {
 
     angular.module('myApp', []).controller('weatherCtrl', function ($scope, $http) {
        $scope.currentIp=returnCitySN["cip"];
-        $http.get('https://wxw.ngrok.xiaomiqiu.cn/api/weather/dayinfos',{params:{ip:$scope.currentIp}}).success(function (response) {
-            $scope.Weather6 = response.HeWeather6;
+
+
+$http({
+        method: 'GET',
+        url: 'https://wxw.ngrok.xiaomiqiu.cn/api/weather/dayinfos?ip='+returnCitySN["cip"]
+    }).then(function successCallback(response) {
+  $scope.Weather6 = response.data.HeWeather6;
             charFunction($scope.Weather6[0].daily_forecast);
             console.log($scope.Weather6[0]);
-
             var data = [{
                 lat: $scope.Weather6[0].basic.lat,
                 lon: $scope.Weather6[0].basic.lon,
@@ -131,13 +178,23 @@ ws.onclose = function(evt) {
                     data: data
                 }]
             });
-        });
-        $http.get('https://wxw.ngrok.xiaomiqiu.cn/api/get-ip',{params:{ip:$scope.currentIp}}).success(function (response) {
-            $scope.count = response.count;
-            $scope.totalCount = response.totalCount;
-    
 
-        });
+        }, function errorCallback(response) {
+            // 请求失败执行代码
+    });
+
+
+$http({
+        method: 'GET',
+        url: 'https://wxw.ngrok.xiaomiqiu.cn/api/get-ip?ip='+returnCitySN["cip"]
+    }).then(function successCallback(response) {
+          $scope.count = response.data.count;
+            $scope.totalCount = response.data.totalCount;
+        }, function errorCallback(response) {
+            // 请求失败执行代码
+    });
+
+     
     });
 
     //绘制表格
@@ -231,49 +288,6 @@ ws.onclose = function(evt) {
         var chart = Highcharts.chart('weatherChart', options);
     };
 </script>
-
-
-<div class="container-fluid" ng-controller="weatherCtrl">
-    <div class="row">
-        <div class="col-sm-12">
-            <div id="userInfo" class="pull-right">
-
-                <p style="font-size: 20px">&nbsp;&nbsp;访问次数：{{totalCount}}&nbsp;&nbsp;</p>
-
-                <p style="font-size: 20px">&nbsp;&nbsp;当前人数：{{count}}&nbsp;&nbsp;</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-12">
-            <div id="weatherInfo">
-                <div id="weatherChart"
-                     style="min-width:700px;height:400px; margin-bottom: 20px;margin-top: 150px;"></div>
-            </div>
-            <p style="text-align: center;font-size: 20px">&nbsp;&nbsp;IP：{{currentIp}}&nbsp;&nbsp;经度：{{Weather6[0].basic.lon}}&nbsp;&nbsp;纬度：{{Weather6[0].basic.lat}}&nbsp;&nbsp;更新时间：{{Weather6[0].update.loc}}</p>
-        </div>
-    </div>
-
-
-    <div class="row">
-        <div class="col-sm-12" style="margin-top: 60px">
-
-            <div id="container" style="height: 600px;"></div>
-        </div>
-    </div>
-    <div class="bottom-container">
-        <div class="row">
-            <a href="./music.html" class="app_name"
-               style="text-decoration: none;color: #849fff;font-size: 48px">
-                <div class="music_app">
-                    点我
-                </div>
-            </a>
-        </div>
-    </div>
-</div>
-
 </body>
 
 </html>
