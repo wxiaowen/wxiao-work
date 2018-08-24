@@ -83,7 +83,7 @@ ws.onclose = function(evt) {
 
     angular.module('myApp', []).controller('weatherCtrl', function ($scope, $http) {
        $scope.currentIp=returnCitySN["cip"];
-        $http.get('http://wxw.ngrok.xiaomiqiu.cn/api/weather/dayinfos',{params:{ip:$scope.currentIp}}).success(function (response) {
+        $http.get('https://wxw.ngrok.xiaomiqiu.cn/api/weather/dayinfos',{params:{ip:$scope.currentIp}}).success(function (response) {
             $scope.Weather6 = response.HeWeather6;
             charFunction($scope.Weather6[0].daily_forecast);
             console.log($scope.Weather6[0]);
@@ -132,7 +132,7 @@ ws.onclose = function(evt) {
                 }]
             });
         });
-        $http.get('http://wxw.ngrok.xiaomiqiu.cn/api/get-ip',{params:{ip:$scope.currentIp}}).success(function (response) {
+        $http.get('https://wxw.ngrok.xiaomiqiu.cn/api/get-ip',{params:{ip:$scope.currentIp}}).success(function (response) {
             $scope.count = response.count;
             $scope.totalCount = response.totalCount;
     
